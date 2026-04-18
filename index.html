@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macks and Sons Electronics Centre</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init('Ot-QeY1eknNLCEKD');
+        })();
+    </script>
+    <script>
+        window.Tawk_API = window.Tawk_API || {}, window.Tawk_LoadStart = new Date();
+        (function() {
+            var tawkScript = document.createElement('script'),
+                tawkAsync = document.getElementsByTagName('script')[0];
+            tawkScript.src = 'https://embed.tawk.to/Tickets@mack-and-sons/electronics.tawk.email/';
+            tawkScript.async = true;
+            tawkAsync.parentNode.insertBefore(tawkScript, tawkAsync);
+        })();
+    </script>
+</head>
+<body>
+    <h1>Welcome to Macks and Sons Electronics Centre</h1>
+    <div id="products">
+        <h2>Our Products</h2>
+        <!-- Product listings go here -->
+    </div>
+    <form id="checkoutForm">
+        <h2>Checkout</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <br>
+        <button type="submit">Checkout</button>
+    </form>
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Complete checkout process
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            // Call EmailJS to send the order details
+            emailjs.send('service_lof2kss', 'template_id', {
+                name: name,
+                email: email
+            }).then(function(response) {
+                alert('Order sent successfully!');
+            }, function(error) {
+                alert('Failed to send order: ' + JSON.stringify(error));
+            });
+        });
+    </script>
+</body>
+</html>
