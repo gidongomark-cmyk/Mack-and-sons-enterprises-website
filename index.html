@@ -3,56 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macks and Sons Electronics Centre</title>
+    <title>E-Commerce Website</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        (function() {
+        (function(){
             emailjs.init('Ot-QeY1eknNLCEKD');
         })();
     </script>
-    <script>
-        window.Tawk_API = window.Tawk_API || {}, window.Tawk_LoadStart = new Date();
-        (function() {
-            var tawkScript = document.createElement('script'),
-                tawkAsync = document.getElementsByTagName('script')[0];
-            tawkScript.src = 'https://embed.tawk.to/Tickets@mack-and-sons/electronics.tawk.email/';
-            tawkScript.async = true;
-            tawkAsync.parentNode.insertBefore(tawkScript, tawkAsync);
-        })();
-    </script>
+    <script src="https://embed.tawk.to/Tickets@mack-and-sons/electronics.tawk.email"></script>
 </head>
 <body>
-    <h1>Welcome to Macks and Sons Electronics Centre</h1>
-    <div id="products">
-        <h2>Our Products</h2>
-        <!-- Product listings go here -->
-    </div>
-    <form id="checkoutForm">
-        <h2>Checkout</h2>
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-        <br>
-        <button type="submit">Checkout</button>
-    </form>
+    <header>
+        <h1>Welcome to Mack and Sons Enterprises</h1>
+        <div id="cart">
+            <button onclick="toggleCart()">Cart (0)</button>
+            <div id="cart-items" style="display:none;">
+                <!-- Cart items will be displayed here -->
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="product-list">
+            <!-- Product cards will be generated here -->
+            <div class="product-card">
+                <h2>Product Title</h2>
+                <p>Product Description</p>
+                <p>Price: $49.99</p>
+                <button onclick="addToCart('Product Title', 49.99)">Add to Cart</button>
+            </div>
+            <!-- And more product cards... -->
+        </div>
+    </main>
+    <footer>
+        <p>© 2026 Mack and Sons Enterprises</p>
+    </footer>
     <script>
-        document.getElementById('checkoutForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Complete checkout process
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            // Call EmailJS to send the order details
-            emailjs.send('service_lof2kss', 'template_id', {
-                name: name,
-                email: email
-            }).then(function(response) {
-                alert('Order sent successfully!');
-            }, function(error) {
-                alert('Failed to send order: ' + JSON.stringify(error));
+        let cart = [];
+
+        function addToCart(item, price) {
+            cart.push({item, price});
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach(cartItem => {
+                cartItems.innerHTML += `<p>${cartItem.item} - $${cartItem.price}</p>`;
+                total += cartItem.price;
             });
-        });
+            cartItems.innerHTML += `<p>Total: $${total}</p>`;
+            document.querySelector('#cart button').innerText = `Cart (${cart.length})`;
+            cartItems.style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        function toggleCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.style.display = cartItems.style.display === 'block' ? 'none' : 'block';
+        }
     </script>
 </body>
 </html>
